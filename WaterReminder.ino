@@ -25,7 +25,7 @@ int WEIGHT_CUP = 1;
 int cups = 0;
 float weight = 0;
 float weights[20];
-float waterPerformance = 800;
+float waterPerformance = 600;
 void loop() {
   if(millis()-checkTime>1000){
     weight = scale.get_units();
@@ -78,13 +78,11 @@ void parseWeight(){
       for(i=minIndex;i<20;i++){
         w += weights[i]/(20-minIndex);
       }
-      if(w<(maxWeight+minWeight)/2){
-        waterPerformance += (maxWeight-minWeight)*2.5; 
-        for(i=0;i<20;i++){
-          weights[i] = 0;
-        }
-        cups = 0;
+      waterPerformance += (maxWeight-w)*2.5; 
+      for(i=0;i<20;i++){
+        weights[i] = 0;
       }
+      cups = 0;
     }
   }
 }
